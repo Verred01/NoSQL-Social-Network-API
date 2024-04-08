@@ -35,4 +35,5 @@ None
 ![Screenshot](./assets/images/Screenshot%20(8).png)
 
 ## Video
-https://drive.google.com/file/d/121QF8dUtXIwzJXhzRQGbS1kyGV5RDX0c/view?usp=sharing
+- Video recorded with OBS and uploaded to google drive.
+- https://drive.google.com/file/d/121QF8dUtXIwzJXhzRQGbS1kyGV5RDX0c/view?usp=sharing
