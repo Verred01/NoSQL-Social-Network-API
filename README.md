@@ -12,7 +12,7 @@ This is a repository for Challenge 18 which is a social network API using mongoo
 - [License](#license)
 
 ## Installation
-None
+You will need to run a npm install for express, mongoose, and nodemon.
 
 ## Usage
 Anyone can use
@@ -24,7 +24,9 @@ Anyone can contribute
 None
 
 ## Credits
-
+- https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+- https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes
+- and of course the bootcamp course itself helped me out too.
 
 ## License
 None
