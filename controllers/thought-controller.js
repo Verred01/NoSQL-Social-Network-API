@@ -14,7 +14,7 @@ module.exports = {
         try {
             const thought = await Thought.findOne({ _id: params.id });
             if (!thought) {
-                res.status(404).json({ message: 'No thought found with this id!' });
+                res.status(404).json({ message: 'Thought was not found.' });
                 return;
             }
             res.json(thought);
@@ -39,7 +39,7 @@ module.exports = {
         try {
             const thought = await Thought.findOneAndDelete({ _id: params.thoughtId});
             if (!thought) {
-                res.status(404).json({ message: 'No thought found with this id!' });
+                res.status(404).json({ message: 'Thought was not found.' });
                 return;
             }
             const userData=await User.findOneAndUpdate(
@@ -48,7 +48,7 @@ module.exports = {
                 {new:true}
             );
             if (!userData) {
-                res.status(404).json({ message: 'Thought deleted but failed to remove from users array!' });
+                res.status(404).json({ message: 'Failed to remove thought.' });
                 return;
             }
             res.json({thought,userData});
@@ -61,11 +61,11 @@ module.exports = {
         try {
             const thought = await Thought.findOneAndUpdate(
                 { _id: params.thoughtId },
-                { $push: { reactions: body } },
+                { $addToSet: { reactions: body } },
                 { new: true, runValidators: true }
             );
             if (!thought) {
-                res.status(404).json({ message: 'No thought found with this id!' });
+                res.status(404).json({ message: 'Thought was not found.' });
                 return;
             }
             res.json(thought);
@@ -82,7 +82,7 @@ module.exports = {
                 { new: true, runValidators: true }
             );
             if (!thought) {
-                res.status(404).json({ message: 'No thought found with this id!' });
+                res.status(404).json({ message: 'Thought was not found.' });
                 return;
             }
             res.json(thought);
@@ -99,7 +99,7 @@ module.exports = {
                 { new: true, runValidators: true }
             );
             if (!thought) {
-                res.status(404).json({ message: 'No thought found with this id!' });
+                res.status(404).json({ message: 'Thought was not found.' });
                 return;
             }
             res.json(thought);
