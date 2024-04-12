@@ -1,17 +1,17 @@
 const router = require('express').Router();
+// uses the user-controller.js file in the controllers directory
 const {
-    getAllUsers,
-    getUserById,
+    getEveryUser,
+    getUserWithID,
     createUser,
-    addFriend,
-    removeFriend,
     updateUser,
-    deleteUser
+    deleteUser,
+    addFriend,
+    removeFriend
 } = require('../../controllers/user-controller');
 
-// Routes for /api/users
-router.route('/').get(getAllUsers).post(createUser);
-router.route('/:id').get(getUserById).put(updateUser).delete(deleteUser);
+router.route('/').get(getEveryUser).post(createUser);
+router.route('/:id').get(getUserWithID).put(updateUser).delete(deleteUser);
 router.route('/:userId/friends/:friendId').post(addFriend).delete(removeFriend);
 
 module.exports = router;

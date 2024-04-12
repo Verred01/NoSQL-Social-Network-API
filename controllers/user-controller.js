@@ -1,7 +1,7 @@
 const { User, Thought } = require('../models');
-// Get all users try/catch
+// uses the controller methods to get, create, update, and delete users
 module.exports = {
-    async getAllUsers(req, res) {
+    async getEveryUser(req, res) {
         try {
             const users = await User.find({}).populate('thoughts').populate('friends');
             res.json(users);
@@ -9,8 +9,8 @@ module.exports = {
             res.status(500).json(error);
         }
     },
-    // get user by id try/catch
-    async getUserById({ params }, res) {
+
+    async getUserWithID({ params }, res) {
         try {
             const user = await User.findOne({ _id: params.id }).populate('thoughts').populate('friends');
             if (!user) {
@@ -22,7 +22,7 @@ module.exports = {
             res.status(500).json(error);
         }
     },
-    // Create user try/catch
+
     async createUser({ body }, res) {
         try {
             const user = await User.create(body);
@@ -31,36 +31,7 @@ module.exports = {
             res.status(500).json(error);
         }
     },
-    // add friend try/catch
-    async addFriend(req, res) {
-        try {
-            const user = await User.findOneAndUpdate(
-                { _id: req.params.userId },
-                { $addToSet: { friends: req.params.friendId } },
-                { new: true }
-            );
-            res.json(user);
-        }
-        catch (error) {
-            res.status(500).json(error);
-        }
-    },
-    // remove friend try/catch
-    async removeFriend(req, res) {
-        try {
-            const user = await
-                User.findOneAndUpdate(
-                    { _id: req.params.userId },
-                    { $pull: { friends: req.params.friendId } },
-                    { new: true }
-                );
-            res.json(user);
-        }
-        catch (error) {
-            res.status(500).json(error);
-        }
-    },
-    // update user try/catch
+
     async updateUser({ params, body }, res) {
         try {
             const user = await User.findOneAndUpdate({ _id: params.id },
@@ -77,7 +48,7 @@ module.exports = {
             res.status(500).json(error);
         }
     },
-    // Delete user try/catch
+
     async deleteUser({ params }, res) {
         try {
             const user = await User.findOneAndDelete({ _id: params.id });
@@ -86,6 +57,35 @@ module.exports = {
                 return;
             }
             await Thought.deleteMany({ _id: { $in: user.thoughts }});
+            res.json(user);
+        }
+        catch (error) {
+            res.status(500).json(error);
+        }
+    },
+// uses the controller methods to add and remove friends
+    async addFriend(req, res) {
+        try {
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $addToSet: { friends: req.params.friendId } },
+                { new: true }
+            );
+            res.json(user);
+        }
+        catch (error) {
+            res.status(500).json(error);
+        }
+    },
+
+    async removeFriend(req, res) {
+        try {
+            const user = await
+                User.findOneAndUpdate(
+                    { _id: req.params.userId },
+                    { $pull: { friends: req.params.friendId } },
+                    { new: true }
+                );
             res.json(user);
         }
         catch (error) {
